@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consultation{% endblock %}
+
+{% block body %}
+    <h1>Consultation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ consultation.id }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ consultation.dateDebut ? consultation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DataFin</th>
+                <td>{{ consultation.dataFin ? consultation.dataFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ consultation.description }}</td>
+            </tr>
+            <tr>
+                <th>Refernce</th>
+                <td>{{ consultation.refernce }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ consultation.statut ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('consultation_index') }}">back to list</a>
+
+    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a>
+
+    {{ include('consultation/_delete_form.html.twig') }}
+{% endblock %}
