@@ -3,29 +3,32 @@
 {% block title %}Utilisateur index{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur index</h1>
+    <br>
+    <div class="row top-actions">
+        <div class="col-8 top-header">
+            <h4>Liste des patients</h4>
+        </div>
+        <div class="col-4 actions text-right">
+            <a class="btn btn-primary" href="{{ path('utilisateur_new') }}">Create new</a>
+        </div>
+    </div>
 
-    <table class="table">
+    <br>
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Username</th>
-                <th>Roles</th>
-                <th>Password</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Email</th>
                 <th>Telephone</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for utilisateur in utilisateurs %}
             <tr>
                 <td>{{ utilisateur.id }}</td>
-                <td>{{ utilisateur.username }}</td>
-                <td>{{ utilisateur.roles ? utilisateur.roles|json_encode : '' }}</td>
-                <td>{{ utilisateur.password }}</td>
                 <td>{{ utilisateur.nom }}</td>
                 <td>{{ utilisateur.prenom }}</td>
                 <td>{{ utilisateur.email }}</td>
@@ -37,11 +40,10 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('utilisateur_new') }}">Create new</a>
 {% endblock %}

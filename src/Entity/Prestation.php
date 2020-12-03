@@ -95,4 +95,10 @@ class Prestation
 
         return $this;
     }
+    /**
+     * @return string
+     */
+    public function __toString(){
+        return $this->libelle;
+    }
 }

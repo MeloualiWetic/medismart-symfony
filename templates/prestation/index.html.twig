@@ -3,15 +3,25 @@
 {% block title %}Prestation index{% endblock %}
 
 {% block body %}
-    <h1>Prestation index</h1>
+<br>
+    <div class="row top-actions">
+        <div class="col-8 top-header">
+            <h4>List des Prestations</h4>
+        </div>
+        <div class="col-4 actions text-right">
+            <a class="btn btn-primary" href="{{ path('prestation_new') }}">Create new</a>
+        </div>
+    </div>
 
-    <table class="table">
+    <br>
+
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Libelle</th>
                 <th>Frais</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,8 +31,10 @@
                 <td>{{ prestation.libelle }}</td>
                 <td>{{ prestation.frais }}</td>
                 <td>
-                    <a href="{{ path('prestation_show', {'id': prestation.id}) }}">show</a>
-                    <a href="{{ path('prestation_edit', {'id': prestation.id}) }}">edit</a>
+                    <a href="{{ path('prestation_show', {'id': prestation.id}) }}"><button class="btn btn-info"><i class="fas fa-eye"></i></button></a>
+                    <a href="{{ path('prestation_edit', {'id': prestation.id}) }}"><button class="btn btn-warning"><i class="fas fa-edit"></i></button></a>
+{#                    <a href="{{ path('prestation_delete', {'id': prestation.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>#}
+                    {{ include('prestation/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +45,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('prestation_new') }}">Create new</a>
+
 {% endblock %}

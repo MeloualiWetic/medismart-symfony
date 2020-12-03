@@ -1,4 +1,14 @@
 {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.libelle) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.frais) }}
+        </div>
+    </div>
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div style="float: right;" class="col-2 actions text-right">
+    <button class="btn btn-primary ">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}

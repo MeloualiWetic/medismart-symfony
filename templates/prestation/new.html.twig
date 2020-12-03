@@ -3,9 +3,14 @@
 {% block title %}New Prestation{% endblock %}
 
 {% block body %}
-    <h1>Create new Prestation</h1>
+    <div class="row top-actions">
+        <div class="col-8 top-header">
+            <h4>Create new Prestation</h4>
+        </div>
+
+    </div>
 
     {{ include('prestation/_form.html.twig') }}
 
-    <a href="{{ path('prestation_index') }}">back to list</a>
+    <a class="btn btn-secondary" href="{{ path('prestation_index') }}">back to list</a>
 {% endblock %}

@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ *
+
  */
 class Utilisateur implements UserInterface
 {
@@ -165,9 +168,12 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
-//    public function __toString(){
-//        return $this->nom;
-//    }
+    /**
+     * @return string
+     */
+    public function __toString(){
+        return $this->nom;
+    }
 
     /**
      * A visual identifier that represents this user.

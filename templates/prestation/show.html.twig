@@ -3,7 +3,12 @@
 {% block title %}Prestation{% endblock %}
 
 {% block body %}
-    <h1>Prestation</h1>
+    <div class="row top-actions">
+        <div class="col-8 top-header">
+            <h4>Prestation</h4>
+        </div>
+
+    </div>
 
     <table class="table">
         <tbody>
@@ -22,9 +27,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('prestation_index') }}">back to list</a>
+    <a class="btn btn-secondary"  href="{{ path('prestation_index') }}">back to list</a>
+<div style="float: right;" class="col-2 actions text-right">
+    <a class="btn btn-primary " href="{{ path('prestation_edit', {'id': prestation.id}) }}">Edit</a>
+</div>
 
-    <a href="{{ path('prestation_edit', {'id': prestation.id}) }}">edit</a>
-
-    {{ include('prestation/_delete_form.html.twig') }}
+{#    {{ include('prestation/_delete_form.html.twig') }}#}
 {% endblock %}

@@ -32,7 +32,7 @@ class DetailConsultation
     private $consultation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=prestation::class, inversedBy="detailConsultations")
+     * @ORM\ManyToOne(targetEntity=Prestation::class, inversedBy="detailConsultations")
      * @ORM\JoinColumn(nullable=false,name="prestation_id", referencedColumnName="id")
      */
     private $prestation;
@@ -71,10 +71,8 @@ class DetailConsultation
         return $this;
     }
 
-    /**
-     * @return Collection|prestation[]
-     */
-    public function getPrestation(): Collection
+
+    public function getPrestation(): ?Prestation
     {
         return $this->prestation;
     }
@@ -94,4 +92,5 @@ class DetailConsultation
 
         return $this;
     }
+
 }
