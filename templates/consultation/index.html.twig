@@ -7,10 +7,10 @@
     <br>
     <div class="row top-actions">
         <div class="col-8 top-header">
-            <h4>List des Consultations</h4>
+            <h4>Liste des Consultations</h4>
         </div>
         <div class="col-4 actions text-right">
-            <a class="btn btn-primary" href="{{ path('consultation_new') }}">Create new</a>
+            <a class="btn btn-primary" href="{{ path('consultation_new') }}">Ajouter</a>
         </div>
     </div>
 
@@ -32,8 +32,8 @@
         {% for consultation in consultations %}
             <tr>
                 <td>{{ consultation.id }}</td>
-                <td>{{ consultation.dateDebut ? consultation.dateDebut|date('d-m-Y ') : '' }}</td>
-                <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y ') : '' }}</td>
+                <td>{{ consultation.dateDebut ? consultation.dateDebut|date('d-m-Y H:i') : '' }}</td>
+                <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
                 <td>{{ consultation.description }}</td>
                 <td>{{ consultation.refernce }}</td>
                 <td>{{ consultation.statut ? 'Payer' : 'No Payer' }}</td>
@@ -46,7 +46,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -3,13 +3,14 @@
 {% block title %}New Utilisateur{% endblock %}
 
 {% block body %}
+    <br>
     <div class="row top-actions">
         <div class="col-8 top-header">
-            <h4>Create new Patient</h4>
+            <h4>Créer Patient</h4>
         </div>
     </div>
-
+<br>
     {{ include('utilisateur/_form.html.twig') }}
 
-    <a class="btn btn-secondary" href="{{ path('utilisateur_index') }}">back to list</a>
+    <a class="btn btn-secondary" href="{{ path('utilisateur_index') }}">Annuler</a>
 {% endblock %}

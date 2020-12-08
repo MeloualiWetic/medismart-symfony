@@ -13,11 +13,11 @@
             </tr>
             <tr>
                 <th>DateDebut</th>
-                <td>{{ consultation.dateDebut ? consultation.dataFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ consultation.dateDebut ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
             </tr>
             <tr>
                 <th>DataFin</th>
-                <td>{{ consultation.dataFin ? consultation.dataFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -61,10 +61,10 @@
 
 {#    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a>#}
 
-    <a class="btn btn-secondary"  href="{{ path('consultation_index') }}">back to list</a>
-    <div style="float: right;" class="col-2 actions text-right">
-        <a class="btn btn-primary " href="{{ path('consultation_edit', {'id': consultation.id}) }}">Edit</a>
-    </div>
+    <a class="btn btn-secondary"  href="{{ path('consultation_index') }}">Annuler</a>
+{#    <div style="float: right;" class="col-2 actions text-right">#}
+{#        <a class="btn btn-primary " href="{{ path('consultation_edit', {'id': consultation.id}) }}">Edit</a>#}
+{#    </div>#}
 
 {#    {{ include('consultation/_delete_form.html.twig') }}#}
 {% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Consultation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,10 +18,10 @@ class ConsultationType extends AbstractType
     {
         $builder
             ->add('utilisateur',EntityType::class,['class'=> 'App\Entity\Utilisateur'] )
-            ->add('dateDebut',DateType::class, [
+            ->add('dateDebut',DateTimeType::class, [
                         'widget' => 'single_text'])
-            ->add('dataFin',DateType::class, [
-                'widget' => 'single_text'])
+            ->add('dataFin',DateTimeType::class, [
+                    'widget' => 'single_text',])
             ->add('description')
             ->add('refernce')
             ->add('statut')
