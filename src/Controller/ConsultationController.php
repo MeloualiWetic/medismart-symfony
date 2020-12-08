@@ -3,20 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\Consultation;
+use App\Entity\DetailConsultation;
 use App\Form\ConsultationType;
 use App\Repository\ConsultationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/consultation")
+ * @Route("/admin/consultation")
+ *
  */
 class ConsultationController extends AbstractController
 {
     /**
      * @Route("/", name="consultation_index", methods={"GET"})
+     *
      */
     public function index(ConsultationRepository $consultationRepository): Response
     {
@@ -27,6 +32,7 @@ class ConsultationController extends AbstractController
 
     /**
      * @Route("/new", name="consultation_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -59,11 +65,14 @@ class ConsultationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="consultation_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="consultation_edit", methods={"GET","POST", "DELETE"   })
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Consultation $consultation): Response
     {
         $form = $this->createForm(ConsultationType::class, $consultation);
+        $consultationToEdit =  $form->getData();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -71,6 +80,8 @@ class ConsultationController extends AbstractController
 
             return $this->redirectToRoute('consultation_index');
         }
+
+
 
         return $this->render('consultation/edit.html.twig', [
             'consultation' => $consultation,
@@ -80,6 +91,7 @@ class ConsultationController extends AbstractController
 
     /**
      * @Route("/{id}", name="consultation_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Consultation $consultation): Response
     {
@@ -91,4 +103,6 @@ class ConsultationController extends AbstractController
 
         return $this->redirectToRoute('consultation_index');
     }
+
+
 }

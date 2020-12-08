@@ -53,7 +53,7 @@ class Consultation
     private $utilisateur;
 
     /**
-     * @ORM\OneToMany(targetEntity=DetailConsultation::class, mappedBy="consultation")
+     * @ORM\OneToMany(targetEntity=DetailConsultation::class, mappedBy="consultation",cascade={"persist","remove"})
      */
     private $detailConsultations;
 

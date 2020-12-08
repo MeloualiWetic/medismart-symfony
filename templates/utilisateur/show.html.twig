@@ -27,12 +27,33 @@
                 <th>Telephone</th>
                 <td>{{ utilisateur.telephone }}</td>
             </tr>
+            <tr>
+                <th>Code Postal</th>
+                <td>{{ utilisateur.adresse.codePostal }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ utilisateur.adresse.numero }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ utilisateur.adresse.ville }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ utilisateur.adresse.pays }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('utilisateur_index') }}">back to list</a>
+{#    <a href="{{ path('utilisateur_index') }}">back to list</a>#}
 
-    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+{#    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>#}
 
-    {{ include('utilisateur/_delete_form.html.twig') }}
+    <a class="btn btn-secondary"  href="{{ path('utilisateur_index') }}">back to list</a>
+    <div style="float: right;" class="col-2 actions text-right">
+        <a class="btn btn-primary " href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Edit</a>
+    </div>
+
+{#    {{ include('utilisateur/_delete_form.html.twig') }}#}
 {% endblock %}

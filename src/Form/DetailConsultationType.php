@@ -18,8 +18,9 @@ class DetailConsultationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('frais')
-            ->add('prestation',EntityType::class,['class'=> 'App\Entity\Prestation'])
+            ->add('id',null ,array('label' => false,'required' => false,))
+            ->add('frais',null,array('label' => false))
+            ->add('prestation',EntityType::class,['class'=> 'App\Entity\Prestation','label' => false])
         ;
 
 

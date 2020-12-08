@@ -5,18 +5,20 @@ namespace App\Controller;
 use App\Entity\Prestation;
 use App\Form\PrestationType;
 use App\Repository\PrestationRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/prestation")
+ * @Route("/admin/prestation")
  */
 class PrestationController extends AbstractController
 {
     /**
      * @Route("/", name="prestation_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(PrestationRepository $prestationRepository): Response
     {
@@ -27,6 +29,7 @@ class PrestationController extends AbstractController
 
     /**
      * @Route("/new", name="prestation_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -50,6 +53,7 @@ class PrestationController extends AbstractController
 
     /**
      * @Route("/{id}", name="prestation_show", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(Prestation $prestation): Response
     {
@@ -60,6 +64,7 @@ class PrestationController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="prestation_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Prestation $prestation): Response
     {
@@ -80,15 +85,26 @@ class PrestationController extends AbstractController
 
     /**
      * @Route("/{id}", name="prestation_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Prestation $prestation): Response
     {
+        $details = $prestation->getDetailConsultations();
+        $error = "";
+        if(count($details)==0){
+
         if ($this->isCsrfTokenValid('delete'.$prestation->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($prestation);
-            $entityManager->flush();
+             $entityManager->flush();
         }
 
         return $this->redirectToRoute('prestation_index');
+        }else{
+            $error = "Supprimer dabord Consultation";
+            return $this->render('prestation/index.html.twig', [
+                'error' => $error,
+            ]);
+        }
     }
 }

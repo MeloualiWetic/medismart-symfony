@@ -3,6 +3,9 @@
     <div class="col-md-6">
         {{ form_row(form.utilisateur) }}
     </div>
+    <div class="col-md-6">
+        {{ form_row(form.refernce) }}
+    </div>
 
 </div>
 <div class="row">
@@ -14,9 +17,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
-        {{ form_row(form.refernce) }}
-    </div>
+
     <div class="col-md-6">
         {{ form_row(form.statut) }}
     </div>
@@ -27,31 +28,58 @@
     </div>
 
 </div>
+
 <br>
 <h4>Details Consultation</h4>
 <div class="row">
 
 
-    <table class="table">
-        {% for row in form.detailConsultations %}
+    <table class="table" >
         <tr>
             <th>
-                {{ form_row(row.prestation) }}
+                Id
             </th>
             <th>
-                {{ form_row(row.frais) }}
+                Prestation
             </th>
-{#            <th>#}
-{#                <a class="btn btn-warning"><i class="fas fa-edit"></i></a>#}
-{#                <a class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>#}
-{#            </th>#}
+            <th>
+                Frais
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        <tbody id="detail_list" data-prototype="{{ form_widget(form.detailConsultations.vars.prototype)|e('html_attr') }}">
+        {% for row in form.detailConsultations %}
+        <tr class ="detail-consultation" >
+            <td>
+                {{ form_row(row.id) }}
+            </td>
+            <td>
+                {{ form_row(row.prestation) }}
+            </td>
+            <td>
+                {{ form_row(row.frais) }}
+            </td>
+            <td>
+{#                <a href="{{ path('detail_consultation_edit', {'id': row.vars.value.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>#}
+                <a href="{{ path('detail_consultation_delete', {'id': row.vars.value.id}) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+{#                {{ include('consultation/_delete_dc_form.html.twig') }}#}
+
+            </td>
         </tr>
         {% endfor %}
+        </tbody>
     </table>
-
+    <div id="new-detail"></div>
 </div>
-
     {{ form_widget(form) }}
 
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+<div style="float: right;" class="col-2 actions text-right">
+    <br>
+    <button  class="btn btn-primary">{{ button_label|default('Save') }}</button>
+</div>
+    {{ form_end(form) }}
+
+

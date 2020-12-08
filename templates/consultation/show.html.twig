@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <th>DateDebut</th>
-                <td>{{ consultation.dateDebut }}</td>
+                <td>{{ consultation.dateDebut ? consultation.dataFin|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>DataFin</th>
@@ -33,10 +33,38 @@
             </tr>
         </tbody>
     </table>
+    <h4>Details Consultation</h4>
+<table class="table">
+    <th>
+        Prestation
+    </th>
+    <th>
+        Frais
+    </th>
 
-    <a href="{{ path('consultation_index') }}">back to list</a>
+    </tr>
+    {% for row in consultation.detailConsultations %}
+    <tr>
 
-    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a>
+        <td>
+            {{ row.prestation}}
+        </td>
+        <td>
+            {{ row.frais }}
+        </td>
 
-    {{ include('consultation/_delete_form.html.twig') }}
+    {% endfor %}
+    </tr>
+</table>
+
+{#    <a  href="{{ path('consultation_index') }}">back to list</a>#}
+
+{#    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a>#}
+
+    <a class="btn btn-secondary"  href="{{ path('consultation_index') }}">back to list</a>
+    <div style="float: right;" class="col-2 actions text-right">
+        <a class="btn btn-primary " href="{{ path('consultation_edit', {'id': consultation.id}) }}">Edit</a>
+    </div>
+
+{#    {{ include('consultation/_delete_form.html.twig') }}#}
 {% endblock %}

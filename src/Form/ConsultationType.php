@@ -35,12 +35,12 @@ class ConsultationType extends AbstractType
                 // self explanatory, this one allows the form to be removed
                 'allow_delete' => true
             ])
-            // just a regular save button to persist the changes
-            ->add('save', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-success'
-                ]
-            ])
+//            // just a regular save button to persist the changes
+//            ->add('save', SubmitType::class, [
+//                'attr' => [
+//                    'class' => 'btn btn-success'
+//                ]
+//            ])
         ;
     }
 

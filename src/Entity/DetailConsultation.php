@@ -26,20 +26,20 @@ class DetailConsultation
     private $frais;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Consultation::class, inversedBy="detailConsultations")
+     * @ORM\ManyToOne(targetEntity=Consultation::class, inversedBy="detailConsultations",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, name="consultation_id", referencedColumnName="id")
      */
     private $consultation;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Prestation::class, inversedBy="detailConsultations")
+     * @ORM\ManyToOne(targetEntity=Prestation::class, inversedBy="detailConsultations",)
      * @ORM\JoinColumn(nullable=false,name="prestation_id", referencedColumnName="id")
      */
     private $prestation;
 
     public function __construct()
     {
-        $this->prestation = new ArrayCollection();
+        $this->prestation = new Prestation();
     }
 
     public function getId(): ?int
@@ -77,18 +77,9 @@ class DetailConsultation
         return $this->prestation;
     }
 
-    public function addPrestation(prestation $prestation): self
+    public function setPrestation(?Prestation $prestation): self
     {
-        if (!$this->prestation->contains($prestation)) {
-            $this->prestation[] = $prestation;
-        }
-
-        return $this;
-    }
-
-    public function removePrestation(prestation $prestation): self
-    {
-        $this->prestation->removeElement($prestation);
+        $this->prestation = $prestation;
 
         return $this;
     }

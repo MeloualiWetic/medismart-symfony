@@ -3,7 +3,18 @@
 {% block title %}Consultation index{% endblock %}
 
 {% block body %}
-    <h1>Consultation index</h1>
+{#    <h1>Consultation index</h1>#}
+    <br>
+    <div class="row top-actions">
+        <div class="col-8 top-header">
+            <h4>List des Consultations</h4>
+        </div>
+        <div class="col-4 actions text-right">
+            <a class="btn btn-primary" href="{{ path('consultation_new') }}">Create new</a>
+        </div>
+    </div>
+
+    <br>
 
     <table class="table">
         <thead>
@@ -13,22 +24,24 @@
                 <th>DataFin</th>
                 <th>Description</th>
                 <th>Refernce</th>
-                <th>Statut</th>
-                <th>actions</th>
+                <th>Payer</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for consultation in consultations %}
             <tr>
                 <td>{{ consultation.id }}</td>
-                <td>{{ consultation.dateDebut ? consultation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ consultation.dataFin ? consultation.dataFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ consultation.dateDebut ? consultation.dateDebut|date('d-m-Y ') : '' }}</td>
+                <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y ') : '' }}</td>
                 <td>{{ consultation.description }}</td>
                 <td>{{ consultation.refernce }}</td>
-                <td>{{ consultation.statut ? 'Yes' : 'No' }}</td>
+                <td>{{ consultation.statut ? 'Payer' : 'No Payer' }}</td>
                 <td>
-                    <a href="{{ path('consultation_show', {'id': consultation.id}) }}">show</a>
-                    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a>
+                    <a href="{{ path('consultation_show', {'id': consultation.id}) }}"class="btn btn-info"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}"class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                    {{ include('consultation/_delete_form.html.twig') }}
+
                 </td>
             </tr>
         {% else %}
@@ -39,5 +52,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('consultation_new') }}">Create new</a>
+
 {% endblock %}

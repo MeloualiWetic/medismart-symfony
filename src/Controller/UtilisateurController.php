@@ -5,18 +5,26 @@ namespace App\Controller;
 use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/utilisateur")
+ * @Route("/admin/utilisateur")
  */
 class UtilisateurController extends AbstractController
 {
+
+    private $encoder;
+    public function __constructor(UserPasswordEncoderInterface $encoder){
+        $this->encoder = $encoder;
+    }
     /**
      * @Route("/", name="utilisateur_index", methods={"GET"})
+     *@IsGranted("ROLE_ADMIN")
      */
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
@@ -27,14 +35,22 @@ class UtilisateurController extends AbstractController
 
     /**
      * @Route("/new", name="utilisateur_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function new(Request $request): Response
+    public function new(Request $request,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $utilisateur->setPassword(
+                $passwordEncoder->encodePassword(
+                    $utilisateur,
+                    $form->get('password')->getData()
+                )
+            );
+        $utilisateur->setRoles(["ROLE_USER"]);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($utilisateur);
             $entityManager->flush();
@@ -50,6 +66,7 @@ class UtilisateurController extends AbstractController
 
     /**
      * @Route("/{id}", name="utilisateur_show", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function show(Utilisateur $utilisateur): Response
     {
@@ -60,6 +77,7 @@ class UtilisateurController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="utilisateur_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Utilisateur $utilisateur): Response
     {
@@ -80,6 +98,7 @@ class UtilisateurController extends AbstractController
 
     /**
      * @Route("/{id}", name="utilisateur_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Utilisateur $utilisateur): Response
     {

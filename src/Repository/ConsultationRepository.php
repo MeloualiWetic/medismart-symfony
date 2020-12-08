@@ -19,32 +19,45 @@ class ConsultationRepository extends ServiceEntityRepository
         parent::__construct($registry, Consultation::class);
     }
 
-    // /**
-    //  * @return Consultation[] Returns an array of Consultation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Consultation[] Returns an array of Consultation objects
+      */
+
+    public function countConsultation()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('count(c.id)')
             ->getQuery()
-            ->getResult()
+            ->getSingleScalarResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Consultation
+
+    /**
+     * @return Consultation[] Returns an array of Consultation objects
+     */
+    public function countConsultationByMonth()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->select('count(c.id) as count,MONTH(c.dateDebut) as byMonth')
+            ->groupBy('byMonth')
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
+    /**
+     * @return Consultation[] Returns an array of Consultation objects
+     */
+    public function findConsultationByUtilisateur($value)
+    {
+        return $this->createQueryBuilder('c')
+//            ->select('c')
+            ->andWhere('c.utilisateur = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 }

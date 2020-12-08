@@ -34,8 +34,9 @@
                 <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.telephone }}</td>
                 <td>
-                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}"class="btn btn-info"><i class="fas fa-eye"></i></a>
+                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}"class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                    {{ include('utilisateur/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}

@@ -75,7 +75,7 @@ class Utilisateur implements UserInterface
     }
     public function __construct()
     {
-        $this->consultations = new ArrayCollection();
+
     }
 
 
