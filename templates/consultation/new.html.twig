@@ -6,6 +6,7 @@
     <h1>Créer une Consultation</h1>
 
     {{ include('consultation/_form.html.twig') }}
+    <br>
+    <a  class="btn btn-secondary" href="{{ path('consultation_index') }}">Annuler</a>
 
-    <a href="{{ path('consultation_index') }}">Annuler</a>
 {% endblock %}

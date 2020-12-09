@@ -23,7 +23,7 @@ class PrestationController extends AbstractController
     public function index(PrestationRepository $prestationRepository): Response
     {
         return $this->render('prestation/index.html.twig', [
-            'prestations' => $prestationRepository->findAll(),
+            'prestations' => $prestationRepository->findNoDeletedPrestation(),
         ]);
     }
 
@@ -38,6 +38,7 @@ class PrestationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $prestation->setIsDeleted(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($prestation);
             $entityManager->flush();
@@ -90,21 +91,21 @@ class PrestationController extends AbstractController
     public function delete(Request $request, Prestation $prestation): Response
     {
         $details = $prestation->getDetailConsultations();
-        $error = "";
-        if(count($details)==0){
 
         if ($this->isCsrfTokenValid('delete'.$prestation->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($prestation);
+            if(count($details)>0){
+
+            $prestation->setIsDeleted(true);
+            $entityManager->persist($prestation);
              $entityManager->flush();
+            }else{
+                $entityManager->remove($prestation);
+                $entityManager->flush();
+            }
         }
 
         return $this->redirectToRoute('prestation_index');
-        }else{
-            $error = "Supprimer dabord Consultation";
-            return $this->render('prestation/index.html.twig', [
-                'error' => $error,
-            ]);
-        }
+
     }
 }

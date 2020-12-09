@@ -5,10 +5,11 @@ var $addNewItem = $('<a href="#" class="btn btn-info">Add new Detail</a>');
 // when the page is loaded and ready
 $(document).ready(function () {
     $collectionHolder = $('#detail_list');
-
+    $('#consultation_detailConsultations').hide();
+    // $('.col-form-label').hide();
     // append the add new item link to the collectionHolder
     // $collectionHolder.append($addNewItem);
-    $('#new-detail').append($addNewItem);
+    // $('#new-detail').append($addNewItem);
     $collectionHolder.data('index', $collectionHolder.find('.detail-consultation').length)
     $collectionHolder.find('.detail-consultation').each(function () {
         // $(this) means the current panel that we are at
@@ -21,7 +22,22 @@ $(document).ready(function () {
     });
 
 
-    $addNewItem.click(function (e) {
+         $('#prestations-list').change(function (e) {
+
+        $('#prestation-libelle').val( $('#prestations-list').find(":selected").text());
+        $('#prestation-frais').val( $('#prestations-list').val());
+        $('#prestation-id').val( $('#prestations-list').val());
+
+             var selected = $('#prestations-list').val();
+             var inputID = $('#prestation-id').val();
+
+        if (selected == inputID ){
+            // $("#prestations-list option:selected").remove();
+            $("#prestations-list option:selected").attr('disabled', 'disabled');
+        }
+    })
+
+    $('#new-row').click(function (e) {
         // preventDefault() is your  homework if you don't know what it is
         // also look up preventPropagation both are usefull
         e.preventDefault();
@@ -49,6 +65,9 @@ function addNewForm() {
     console.log("new Form " +newForm);
     newForm = newForm.replace(/__name__/g, index);
     newForm = newForm.replace(/div/g, 'td');
+    var idLibelle = "consultation_detailConsultations_"+index+"_prestationLibelle"
+    var idFrais = "consultation_detailConsultations_"+index+"_frais"
+    var idPrestation = "consultation_detailConsultations_"+index+"_prestation"
 
     // incrementing the index data and setting it again to the collectionHolder
     $collectionHolder.data('index', index+1);
@@ -58,7 +77,12 @@ function addNewForm() {
 
     addRemoveButton($Body);
 
-    $addNewItem.before($Body);
+    $($collectionHolder).append($Body);
+
+    $('#'+idLibelle).val($('#prestation-libelle').val());
+    $('#'+idFrais).val($('#prestation-frais').val());
+    $('#'+idPrestation).val($('#prestation-id').val);
+    $('#'+idPrestation).hide();
 }
 
 /**
@@ -67,7 +91,7 @@ function addNewForm() {
  */
 function addRemoveButton ($row) {
     // create remove button
-    var $removeButton = $('<a href="#" class="btn btn-danger">Remove</a>');
+    var $removeButton = $('<a href="#" class="btn btn-danger">Supprimer</a>');
     var $actionTd = $('<td ></td>').append($removeButton);
 
     $removeButton.click(function (e) {

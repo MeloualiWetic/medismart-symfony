@@ -19,11 +19,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+{#                <th>Id</th>#}
                 <th>DateDebut</th>
                 <th>DataFin</th>
                 <th>Description</th>
-                <th>Refernce</th>
+                <th>Reference</th>
                 <th>Payer</th>
                 <th>Actions</th>
             </tr>
@@ -31,7 +31,7 @@
         <tbody>
         {% for consultation in consultations %}
             <tr>
-                <td>{{ consultation.id }}</td>
+{#                <td>{{ consultation.id }}</td>#}
                 <td>{{ consultation.dateDebut ? consultation.dateDebut|date('d-m-Y H:i') : '' }}</td>
                 <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
                 <td>{{ consultation.description }}</td>

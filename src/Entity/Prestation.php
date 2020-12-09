@@ -31,6 +31,11 @@ class Prestation
     private $frais;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDeleted;
+
+    /**
      * @ORM\OneToMany(targetEntity=DetailConsultation::class, mappedBy="prestation")
      */
     private $detailConsultations;
@@ -99,6 +104,27 @@ class Prestation
      * @return string
      */
     public function __toString(){
+//        if(is_null($this->libelle)) {
+//            return 'NULL';
+//        }
         return $this->libelle;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param mixed $isDeleted
+     */
+    public function setIsDeleted($isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
+    }
+
+
 }

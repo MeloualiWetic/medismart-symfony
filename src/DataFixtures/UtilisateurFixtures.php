@@ -34,6 +34,7 @@ class UtilisateurFixtures extends Fixture
         $user->setUsername("admin");
         $user->setEmail("admi@gmail.com");
         $user->setTelephone("0101010101001");
+        $user->setIsDeleted(false);
         $user->setAdresse($adresse);
         $manager->persist($user);
         $manager->flush();

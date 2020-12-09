@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Prestation;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -63,4 +64,20 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         ;
     }
     */
+
+    /**
+     * @return Utilisateur[] Returns an array of Consultation objects
+     */
+    public function findNoDeletedUtilisateur()
+    {
+        return $this->createQueryBuilder('p')
+//            ->select('c')
+            ->andWhere('p.isDeleted = :val')
+            ->setParameter('val', 0)
+            ->andWhere('p.roles != :val')
+            ->setParameter('val', '["ROLE_ADMIN"]')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

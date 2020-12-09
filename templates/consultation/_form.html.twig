@@ -1,10 +1,15 @@
 {{ form_start(form) }}
+<style>
+    tr td:not(.td-not-hide):nth-child(4) {
+        display: none;
+    }
+</style>
 <div class="row">
     <div class="col-md-6">
         {{ form_row(form.utilisateur) }}
     </div>
     <div class="col-md-6">
-        {{ form_row(form.refernce) }}
+        {{ form_row(form.refernce,{ 'label': 'Reference'}) }}
     </div>
 
 </div>
@@ -19,7 +24,7 @@
 <div class="row">
 
     <div class="col-md-6">
-        {{ form_row(form.statut) }}
+        {{ form_row(form.statut,{ 'label': 'Payer'}) }}
     </div>
 </div>
 <div class="row">
@@ -31,14 +36,25 @@
 
 <br>
 <h4>Details Consultation</h4>
+
+
 <div class="row">
+<div class="col-md-6" >
+        <select style=" margin: 3% 9%;" id="prestations-list" class="selectpicker form-control">
+        <option>Selectionner une prestation</option>
+        {% for prestaion in listPrestation %}
 
-
+            <option value="{{ prestaion.id }}" >{{ prestaion.libelle }}</option>
+        {% endfor %}
+    </select>
+</div>
+<br>
     <table class="table" >
         <tr>
             <th>
-                Id
+
             </th>
+
             <th>
                 Prestation
             </th>
@@ -49,17 +65,35 @@
                 Action
             </th>
         </tr>
+        <tr>
+            <td class="td-not-hide">
+                <input id="prestation-id"  class="form-control " type="hidden">
+            </td>
+            <td class="td-not-hide">
+                <input id="prestation-libelle" class="form-control" type="text">
+            </td>
+            <td class="td-not-hide">
+                <input id="prestation-frais"  class="form-control" type="number">
+            </td>
+            <td class="td-not-hide">
+                <a href="#" class="btn btn-info" id="new-row">Ajouter</a>
+            </td>
+        </tr>
         <tbody id="detail_list" data-prototype="{{ form_widget(form.detailConsultations.vars.prototype)|e('html_attr') }}">
         {% for row in form.detailConsultations %}
         <tr class ="detail-consultation" >
             <td>
-                {{ form_row(row.id) }}
+{#                {{ form_row(row.id) }}#}
+            </td>
+            <td>
+                {{ form_row(row.prestationLibelle) }}
+            </td>
+
+            <td>
+                {{ form_row(row.frais,{'type':'number'}) }}
             </td>
             <td>
                 {{ form_row(row.prestation) }}
-            </td>
-            <td>
-                {{ form_row(row.frais) }}
             </td>
             <td>
 {#                <a href="{{ path('detail_consultation_edit', {'id': row.vars.value.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>#}

@@ -29,7 +29,7 @@ class UtilisateurController extends AbstractController
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
         return $this->render('utilisateur/index.html.twig', [
-            'utilisateurs' => $utilisateurRepository->findAll(),
+            'utilisateurs' => $utilisateurRepository->findNoDeletedUtilisateur(),
         ]);
     }
 
@@ -43,6 +43,7 @@ class UtilisateurController extends AbstractController
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateur->setIsDeleted(false);
             // encode the plain password
             $utilisateur->setPassword(
                 $passwordEncoder->encodePassword(
@@ -102,10 +103,17 @@ class UtilisateurController extends AbstractController
      */
     public function delete(Request $request, Utilisateur $utilisateur): Response
     {
+        $consultations = $utilisateur->getConsultations();
         if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($utilisateur);
+            if(count($consultations)>0){
+            $utilisateur->setIsDeleted(true);
+            $entityManager->persist($utilisateur);
             $entityManager->flush();
+            }else{
+                $entityManager->remove($utilisateur);
+                $entityManager->flush();
+            }
         }
 
         return $this->redirectToRoute('utilisateur_index');

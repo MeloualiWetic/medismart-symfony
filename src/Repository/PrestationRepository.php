@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Consultation;
 use App\Entity\Prestation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,6 +32,35 @@ class PrestationRepository extends ServiceEntityRepository
             ->getSingleScalarResult()
         ;
     }
+    /**
+     * @return Prestation[] Returns an array of Consultation objects
+     */
+    public function findNoDeletedPrestation()
+    {
+        return $this->createQueryBuilder('p')
+//            ->select('c')
+            ->andWhere('p.isDeleted = :val')
+            ->setParameter('val', 0)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+//    /**
+//     * @override
+//     * @return Prestation[] Returns an array of Consultation objects
+//     */
+//   public function findAll()
+//   {
+//       return $this->createQueryBuilder('p')
+//           ->andWhere('p.isDeleted = :val')
+//           ->setParameter('val', 0)
+//           ->getQuery()
+//           ->getResult()
+//           ;
+//       ;
+//   }
 
 
     /*

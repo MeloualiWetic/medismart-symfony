@@ -59,6 +59,11 @@ class Utilisateur implements UserInterface
     private $telephone;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDeleted;
+
+    /**
      * @ORM\OneToMany(targetEntity=Consultation::class, mappedBy="utilisateur")
      */
     private $consultations;
@@ -242,4 +247,22 @@ class Utilisateur implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param mixed $isDeleted
+     */
+    public function setIsDeleted($isDeleted): void
+    {
+        $this->isDeleted = $isDeleted;
+    }
+
+
 }

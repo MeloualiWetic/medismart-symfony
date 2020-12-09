@@ -66,6 +66,7 @@
         <!-- /.card-body -->
     </div>
     </div>
+
 {% block js %}
     <script src="{{ asset('plugins/jquery/jquery.min.js')  }}"></script>
     <!-- Bootstrap 4 -->
@@ -76,6 +77,7 @@
     <script src="{{ asset('dist/js/adminlte.min.js')  }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('dist/js/demo.js')  }}"></script>
+
     <script>
         $(function () {
             /* ChartJS
@@ -135,7 +137,7 @@
                 data: areaChartData,
                 options: areaChartOptions
             })
-        })
+        });
 
     </script>
 {% endblock %}

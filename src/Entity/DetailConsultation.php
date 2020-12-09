@@ -25,6 +25,12 @@ class DetailConsultation
      */
     private $frais;
 
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+     private $prestationLibelle;
+
     /**
      * @ORM\ManyToOne(targetEntity=Consultation::class, inversedBy="detailConsultations",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, name="consultation_id", referencedColumnName="id")
@@ -58,6 +64,23 @@ class DetailConsultation
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPrestationLibelle()
+    {
+        return $this->prestationLibelle;
+    }
+
+    /**
+     * @param mixed $prestationLibelle
+     */
+    public function setPrestationLibelle($prestationLibelle): void
+    {
+        $this->prestationLibelle = $prestationLibelle;
+    }
+
 
     public function getConsultation(): ?Consultation
     {

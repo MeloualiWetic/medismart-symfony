@@ -6,6 +6,7 @@ use App\Entity\Consultation;
 use App\Entity\DetailConsultation;
 use App\Form\ConsultationType;
 use App\Repository\ConsultationRepository;
+use App\Repository\PrestationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,9 +35,12 @@ class ConsultationController extends AbstractController
      * @Route("/new", name="consultation_new", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function new(Request $request): Response
+    public function new(Request $request,PrestationRepository $prestationRepository): Response
     {
+        $listPrestation = $prestationRepository->findNoDeletedPrestation();
         $consultation = new Consultation();
+        $reference = "REF".date("Ymd");
+        $consultation->setRefernce($reference);
         $form = $this->createForm(ConsultationType::class, $consultation);
         $form->handleRequest($request);
 
@@ -51,6 +55,7 @@ class ConsultationController extends AbstractController
         return $this->render('consultation/new.html.twig', [
             'consultation' => $consultation,
             'form' => $form->createView(),
+            'listPrestation'=>$listPrestation
         ]);
     }
 
@@ -68,13 +73,13 @@ class ConsultationController extends AbstractController
      * @Route("/{id}/edit", name="consultation_edit", methods={"GET","POST", "DELETE"   })
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit(Request $request, Consultation $consultation): Response
+    public function edit(Request $request, Consultation $consultation,PrestationRepository $prestationRepository): Response
     {
         $form = $this->createForm(ConsultationType::class, $consultation);
         $consultationToEdit =  $form->getData();
-
+        $detail [] = $consultationToEdit->getDetailConsultations();
         $form->handleRequest($request);
-
+        $listPrestation = $prestationRepository->findNoDeletedPrestation();
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -86,6 +91,7 @@ class ConsultationController extends AbstractController
         return $this->render('consultation/edit.html.twig', [
             'consultation' => $consultation,
             'form' => $form->createView(),
+            'listPrestation' => $listPrestation,
         ]);
     }
 
