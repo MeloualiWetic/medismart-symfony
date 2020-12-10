@@ -100,6 +100,7 @@ class Prestation
 
         return $this;
     }
+
     /**
      * @return string
      */

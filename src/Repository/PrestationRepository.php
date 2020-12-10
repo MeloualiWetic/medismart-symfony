@@ -33,7 +33,7 @@ class PrestationRepository extends ServiceEntityRepository
         ;
     }
     /**
-     * @return Prestation[] Returns an array of Consultation objects
+     * @return Prestation[] Returns an array of Prestation objects
      */
     public function findNoDeletedPrestation()
     {
