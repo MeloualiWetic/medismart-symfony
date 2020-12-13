@@ -11,15 +11,15 @@ $(document).ready(function () {
     // $collectionHolder.append($addNewItem);
     // $('#new-detail').append($addNewItem);
     $collectionHolder.data('index', $collectionHolder.find('.detail-consultation').length)
-    $collectionHolder.find('.detail-consultation').each(function () {
-        // $(this) means the current panel that we are at
-        // which means we pass the panel to the addRemoveButton function
-        // inside the function we create a footer and remove link and append them to the panel
-        // more informations in the function inside
-        // addRemoveButton($(this));
-
-
-    });
+    // $collectionHolder.find('.detail-consultation').each(function () {
+    //     // $(this) means the current panel that we are at
+    //     // which means we pass the panel to the addRemoveButton function
+    //     // inside the function we create a footer and remove link and append them to the panel
+    //     // more informations in the function inside
+    //     // addRemoveButton($(this));
+    //
+    //
+    // });
 
 
          $('#prestations-list').change(function (e) {
@@ -31,10 +31,7 @@ $(document).ready(function () {
              var selected = $('#prestations-list').val();
              var inputID = $('#prestation-id').val();
 
-        if (selected == inputID ){
-            // $("#prestations-list option:selected").remove();
-            $("#prestations-list option:selected").attr('disabled', 'disabled');
-        }
+
     })
 
     $('#new-row').click(function (e) {
@@ -72,7 +69,7 @@ function addNewForm() {
     // incrementing the index data and setting it again to the collectionHolder
     $collectionHolder.data('index', index+1);
     // create the panel-body and append the form to it
-    var $Body = $('<tr></tr>').append(newForm);
+    var $Body = $('<tr class="added-row"></tr>').append(newForm);
     // $panel.append($panelBody);
 
     addRemoveButton($Body);
@@ -96,7 +93,7 @@ function addRemoveButton ($row) {
 
     $removeButton.click(function (e) {
         e.preventDefault();
-    $(e.target).parents('.detail-consultation').slideUp(1000, function () {
+    $(e.target).parents('.added-row').slideUp(1000, function () {
         $(this).remove();
     })
     });

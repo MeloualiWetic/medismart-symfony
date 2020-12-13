@@ -3,10 +3,11 @@
 {% block title %}New Consultation{% endblock %}
 
 {% block body %}
+<div class="container-fluid dashboard-div">
     <h1>Créer une Consultation</h1>
 
     {{ include('consultation/_form.html.twig') }}
     <br>
     <a  class="btn btn-danger" href="{{ path('consultation_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
-
+</div>
 {% endblock %}

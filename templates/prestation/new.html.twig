@@ -3,6 +3,7 @@
 {% block title %}Créer Prestation{% endblock %}
 
 {% block body %}
+<div class="container-fluid">
     <div class="row top-actions">
         <div class="col-8 top-header">
             <h4>Créer Prestation</h4>
@@ -13,4 +14,5 @@
     {{ include('prestation/_form.html.twig') }}
 
     <a class="btn btn-danger" href="{{ path('prestation_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
-{% endblock %}
+</div>
+    {% endblock %}

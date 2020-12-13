@@ -3,169 +3,148 @@
     tr td:not(.td-not-hide):nth-child(4) {
         display: none;
     }
+
     table.table th:nth-child(1), table.table td:nth-child(1) {
         display: none;
     }
-    .material-switch .form-group .form-check input {
-        display: none;
-    }
-
-    .material-switch .form-group .form-check label {
-        cursor: pointer;
-        height: 0px;
-        position: relative;
-        width: 40px;
-    }
-
-    .material-switch .form-group .form-check label::before {
-        background: rgb(0, 0, 0);
-        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-        border-radius: 8px;
-        content: '';
-        height: 16px;
-        margin-top: -8px;
-        position: absolute;
-        opacity: 0.3;
-        transition: all 0.4s ease-in-out;
-        width: 40px;
-    }
-
-    .material-switch .form-group .form-check label::after {
-        background: rgb(255, 255, 255);
-        border-radius: 16px;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
-        content: '';
-        height: 24px;
-        left: -4px;
-        margin-top: -8px;
-        position: absolute;
-        top: -4px;
-        transition: all 0.3s ease-in-out;
-        width: 24px;
-    }
-
-    .material-switch .form-group .form-check input[type="checkbox"]:checked+label::before {
-        background: inherit;
-        opacity: 0.5;
-    }
-
-    .material-switch .form-group .form-check input[type="checkbox"]:checked+label::after {
-        background: #29c81e;
-        left: 20px;
-    }
 </style>
-<div class="row">
-    <div class="col-lg-6 col-sm-12">
-        {{ form_row(form.utilisateur) }}
+<div class="container-fluid dashboard-div">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            {{ form_row(form.utilisateur) }}
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            {{ form_row(form.refernce,{ 'label': 'Reference'}) }}
+        </div>
+
     </div>
-    <div class="col-lg-6 col-sm-12">
-        {{ form_row(form.refernce,{ 'label': 'Reference'}) }}
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            {{ form_row(form.dateDebut) }}
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            {{ form_row(form.dataFin) }}
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="material-switch col-lg-6 col-sm-12">
+            <label>Statut de paiement</label>
+            {{ form_row(form.statut) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            {{ form_row(form.description) }}
+        </div>
+
     </div>
 
-</div>
-<div class="row">
-    <div class="col-lg-6 col-sm-12">
-        {{ form_row(form.dateDebut) }}
-    </div>
-    <div class="col-lg-6 col-sm-12">
-        {{ form_row(form.dataFin) }}
-    </div>
-</div>
-<div class="row">
 
-    <div class="material-switch col-lg-6 col-sm-12">
-        <label>Statut de paiement</label>
-        {{ form_row(form.statut) }}
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        {{ form_row(form.description) }}
-    </div>
-
-</div>
-
-
-<br>
-<h4>Details Consultation</h4>
-
-
-<div class="row">
-<div class="col-md-6" >
-        <select id="prestations-list" class="selectpicker form-control">
-        <option>Selectionnez une prestation</option>
-        {% for prestaion in listPrestation %}
-
-            <option value="{{ prestaion.id }}" >{{ prestaion.libelle }}</option>
-        {% endfor %}
-    </select>
-</div>
-<br>
-    <table class="table" >
-        <tr>
-            <th>
-
-            </th>
-
-            <th>
-                Libelle
-            </th>
-            <th>
-                Prix
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-        <tr>
-            <td class="td-not-hide">
-                <input id="prestation-id"  class="form-control " type="hidden">
-            </td>
-            <td class="td-not-hide">
-                <input id="prestation-libelle" class="form-control" type="text">
-            </td>
-            <td class="td-not-hide">
-                <input id="prestation-frais"  class="form-control" type="number">
-            </td>
-            <td class="td-not-hide">
-                <a href="#" class="btn btn-info" id="new-row">Ajouter a la selection</a>
-            </td>
-        </tr>
-        <tbody id="detail_list" data-prototype="{{ form_widget(form.detailConsultations.vars.prototype)|e('html_attr') }}">
-        {% for row in form.detailConsultations %}
-        <tr class ="detail-consultation" >
-            <td>
-{#                {{ form_row(row.id) }}#}
-            </td>
-            <td>
-                {{ form_row(row.prestationLibelle) }}
-            </td>
-
-            <td>
-                {{ form_row(row.frais,{'type':'number'}) }}
-            </td>
-            <td>
-                {{ form_row(row.prestation) }}
-            </td>
-            <td>
-{#                <a href="{{ path('detail_consultation_edit', {'id': row.vars.value.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>#}
-                <a href="{{ path('detail_consultation_delete', {'id': row.vars.value.id}) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-{#                {{ include('consultation/_delete_dc_form.html.twig') }}#}
-
-            </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div id="new-detail"></div>
-</div>
-    {{ form_widget(form) }}
-
-
-<div style="float: right;" class="col-2 actions text-right">
     <br>
-    <button  class="btn btn-primary"><i class="far fa-save"></i></button>
+    <h4 style="margin-left: 1.5%;">Details Consultation</h4>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <select style=" margin-left: 3%;" id="prestations-list" class="selectpicker form-control">
+                    <option>Selectionnez une prestation</option>
+                    {% for prestaion in listPrestation %}
+
+                        <option value="{{ prestaion.id }}">{{ prestaion.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div class="card-body">
+                <table class="table table-bordered table-hover" id="detail-consultation-table">
+                    <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+
+                        <th>
+                            Libelle
+                        </th>
+                        <th>
+                            Prix
+                        </th>
+                        <td style="display: none">
+
+                        </td>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                    </thead>
+
+
+                    <tbody id="detail_list"
+                           data-prototype="{{ form_widget(form.detailConsultations.vars.prototype)|e('html_attr') }}">
+                    <tr>
+                        <td class="td-not-hide">
+                            <input id="prestation-id" class="form-control " type="hidden">
+                        </td>
+                        <td class="td-not-hide">
+                            <input id="prestation-libelle" class="form-control" type="text">
+                        </td>
+                        <td class="td-not-hide">
+                            <input id="prestation-frais" class="form-control" type="number">
+                        </td>
+                        <td style="display: none">
+
+                        </td>
+                        <td class="td-not-hide">
+                            <a href="#" class="btn btn-info" id="new-row">Ajouter a la selection</a>
+                        </td>
+                    </tr>
+                    {% for row in form.detailConsultations %}
+                        <tr class="detail-consultation">
+                            <td>
+                                {# {{ form_row(row.id) }} #}
+                            </td>
+                            <td>
+                                {{ form_row(row.prestationLibelle) }}
+                            </td>
+
+                            <td>
+                                {{ form_row(row.frais,{'type':'number'}) }}
+                            </td>
+                            <td>
+                                {{ form_row(row.prestation) }}
+                            </td>
+                            <td>
+                                {# <a href="{{ path('detail_consultation_edit', {'id': row.vars.value.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a> #}
+                                <a href="{{ path('detail_consultation_delete', {'id': row.vars.value.id}) }}"
+                                   class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                {# {{ include('consultation/_delete_dc_form.html.twig') }} #}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div id="new-detail"></div>
+        </div>
+        {{ form_widget(form) }}
+
+
+        <div style="float: right;" class="col-2 actions text-right">
+            <br>
+            <button class="btn btn-primary"><i class="far fa-save"></i></button>
+        </div>
+
 </div>
-    {{ form_end(form) }}
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+<!-- DataTables -->
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+
+{{ form_end(form) }}
 
 

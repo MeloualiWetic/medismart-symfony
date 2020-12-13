@@ -39,7 +39,7 @@ class ConsultationController extends AbstractController
     {
         $listPrestation = $prestationRepository->findNoDeletedPrestation();
         $consultation = new Consultation();
-        $reference = "REF".date("Ymd");
+        $reference = "REF".date("ymdHis");
         $consultation->setRefernce($reference);
         $form = $this->createForm(ConsultationType::class, $consultation);
         $form->handleRequest($request);
@@ -76,18 +76,9 @@ class ConsultationController extends AbstractController
     public function edit(Request $request, Consultation $consultation,PrestationRepository $prestationRepository): Response
     {
         $form = $this->createForm(ConsultationType::class, $consultation);
-        $detailToRmove =   $consultation ->getDetailConsultations();
         $form->handleRequest($request);
         $listPrestation = $prestationRepository->findNoDeletedPrestation();
-        for ($i=0;$i<= count($listPrestation);$i++ ){
-            foreach ($detailToRmove as $detail){
 
-                if($listPrestation[$i]->getId() == $detail->getPrestation()->getId() ){
-                    unset($listPrestation[$i]);
-
-                }
-            }
-        }
 //        unset($listPrestation[count($listPrestation)]);
 
         if ($form->isSubmitted() && $form->isValid()) {

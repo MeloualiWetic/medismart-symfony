@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noodp,notranslate,noimageindex" />
     <title>Welcome to Symfony!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
         body { background-image: url("{{ asset('dist/img/3793169.jpg') }}");  display: flex; font: 16px/1.5 sans-serif; justify-content: center; margin: 0; }
@@ -37,25 +38,7 @@
         .resource p { margin-top: 5px; }
         .resource a { display: block; font-size: 14px; }
 
-        @media (min-width: 768px) {
-            @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-            @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-            .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards; z-index: 99999; }
 
-            body { font-size: 20px; }
-            .warning { text-align: center; }
-            .warning svg { height: 32px; width: 32px; }
-            .resources .row { margin-left: 50px; margin-right: 50px; }
-            .resource { padding: 0 30px; }
-
-            .status { padding-bottom: 4em; }
-            .status code { display: inline-flex; }
-            .status .status-ready { display: block; }
-
-            .resource svg { height: 64px; width: 64px; }
-            .resource h2 { font-size: 22px; }
-            .resource a { font-size: 16px; margin-top: 0; }
-        }
     </style>
 </head>
 <body>

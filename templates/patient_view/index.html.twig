@@ -3,54 +3,63 @@
 {% block title %}Consultation index{% endblock %}
 
 {% block body %}
-    {#    <h1>Consultation index</h1>#}
+    {# <h1>Consultation index</h1> #}
     <br>
-    <div class="row top-actions">
-        <div class="col-8 top-header">
-            <h4>Liste des Consultations</h4>
+    <div class="container-fluid dashboard-div">
+        <div class="row top-actions">
+            <div class="col-8 top-header">
+                <h4>Liste des Consultations</h4>
+            </div>
+            {# <div class="col-4 actions text-right"> #}
+            {# <a class="btn btn-primary" href="{{ path('consultation_new') }}">Create new</a> #}
+            {# </div> #}
         </div>
-{#        <div class="col-4 actions text-right">#}
-{#            <a class="btn btn-primary" href="{{ path('consultation_new') }}">Create new</a>#}
-{#        </div>#}
+
+        <br>
+        <div class="card-body">
+            <table id="patient-view-table" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th>Date Début</th>
+                    <th>Data Fin</th>
+                    {# <th>Description</th> #}
+                    <th>Refernce</th>
+                    <th>Payé</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for consultation in consultations %}
+                    <tr>
+                        {# <td>{{ consultation.id }}</td> #}
+                        <td>{{ consultation.dateDebut ? consultation.dateDebut|date('d-m-Y H:i') : '' }}</td>
+                        <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
+                        {# <td>{{ consultation.description }}</td> #}
+                        <td>{{ consultation.refernce }}</td>
+                        <td>
+                            {% if(consultation.statut) %}
+                                <i style="color: #639439" class="fas fa-check"></i>
+                            {% else %}
+                                <i style="color: #C6631F" class="fas fa-times"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('patient_consultation_show', {'id': consultation.id}) }}"
+                               class="btn btn-info"><i class="fas fa-eye"></i></a>
+                            {# <a href="{{ path('consultation_edit', {'id': consultation.id}) }}"class="btn btn-warning"><i class="fas fa-edit"></i></a> #}
+                            {# {{ include('consultation/_delete_form.html.twig') }} #}
+
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <br>
-
-    <table class="table">
-        <thead>
-        <tr>
-{#            <th>Id</th>#}
-            <th>DateDebut</th>
-            <th>DataFin</th>
-            <th>Description</th>
-            <th>Refernce</th>
-            <th>Payer</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for consultation in consultations %}
-            <tr>
-{#                <td>{{ consultation.id }}</td>#}
-                <td>{{ consultation.dateDebut ? consultation.dateDebut|date('d-m-Y H:i') : '' }}</td>
-                <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
-                <td>{{ consultation.description }}</td>
-                <td>{{ consultation.refernce }}</td>
-                <td>{{ consultation.statut ? 'Payer' : 'No Payer' }}</td>
-                <td>
-                    <a href="{{ path('patient_consultation_show', {'id': consultation.id}) }}"class="btn btn-info"><i class="fas fa-eye"></i></a>
-{#                    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}"class="btn btn-warning"><i class="fas fa-edit"></i></a>#}
-{#                    {{ include('consultation/_delete_form.html.twig') }}#}
-
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">Aucun enregistrement trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
 
 {% endblock %}

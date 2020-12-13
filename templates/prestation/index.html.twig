@@ -3,54 +3,61 @@
 {% block title %}Prestation index{% endblock %}
 
 {% block body %}
-<br>
-    <div class="row top-actions">
-        <div class="col-8 top-header">
-            <h4>Liste des Prestations</h4>
-        </div>
-        <div class="col-4 actions text-right">
-            <a class="btn btn-primary" href="{{ path('prestation_new') }}"><i class="fas fa-plus"></i></a>
-        </div>
-    </div>
-
     <br>
-<div>
-    {% if(errorMsg != " ") %}
-    <div class="alert alert-warning" role="alert">
-        <i class="fas fa-exclamation-triangle"></i>  {{ errorMsg }}
+    <div class="container-fluid">
+        <div class="row top-actions">
+            <div class="col-8 top-header">
+                <h4>Liste des Prestations</h4>
+            </div>
+            <div class="col-4 actions text-right">
+                <a class="btn btn-primary" href="{{ path('prestation_new') }}"><i class="fas fa-plus"></i></a>
+            </div>
+        </div>
+
+        <br>
+        <div>
+            {% if(errorMsg != " ") %}
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> {{ errorMsg }}
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="card-body">
+            <table id="prestation-table" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    {# <th>Id</th> #}
+                    <th>Libelle</th>
+                    <th>Frais</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for prestation in prestations %}
+                    <tr>
+                        {# <td>{{ prestation.id }}</td> #}
+                        <td>{{ prestation.libelle }}</td>
+                        <td>{{ prestation.frais }}</td>
+                        <td>
+                            <a href="{{ path('prestation_show', {'id': prestation.id}) }}">
+                                <button class="btn btn-info"><i class="fas fa-eye"></i></button>
+                            </a>
+                            <a href="{{ path('prestation_edit', {'id': prestation.id}) }}">
+                                <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
+                            </a>
+                            {# <a href="{{ path('prestation_delete', {'id': prestation.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a> #}
+                            {{ include('prestation/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucun enregistrement trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    {% endif %}
-
-</div>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-{#                <th>Id</th>#}
-                <th>Libelle</th>
-                <th>Frais</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for prestation in prestations %}
-            <tr>
-{#                <td>{{ prestation.id }}</td>#}
-                <td>{{ prestation.libelle }}</td>
-                <td>{{ prestation.frais }}</td>
-                <td>
-                    <a href="{{ path('prestation_show', {'id': prestation.id}) }}"><button class="btn btn-info"><i class="fas fa-eye"></i></button></a>
-                    <a href="{{ path('prestation_edit', {'id': prestation.id}) }}"><button class="btn btn-warning"><i class="fas fa-edit"></i></button></a>
-{#                    <a href="{{ path('prestation_delete', {'id': prestation.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>#}
-                    {{ include('prestation/_delete_form.html.twig') }}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Aucun enregistrement trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
 
 {% endblock %}

@@ -3,11 +3,13 @@
 {% block title %}Editer Consultation{% endblock %}
 
 {% block body %}
-    <h1>Editer Consultation</h1>
+    <div class="container-fluid dashboard-div">
+        <h1>Editer Consultation</h1>
 
-    {{ include('consultation/_form.html.twig', {'button_label': 'Editer'}) }}
-    <br>
-    <a  class="btn btn-danger" href="{{ path('consultation_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
+        {{ include('consultation/_form.html.twig', {'button_label': 'Editer'}) }}
+        <br>
+        <a class="btn btn-danger" href="{{ path('consultation_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
 
-{#    {{ include('consultation/_delete_form.html.twig') }}#}
+        {# {{ include('consultation/_delete_form.html.twig') }} #}
+    </div>
 {% endblock %}

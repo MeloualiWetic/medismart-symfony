@@ -3,14 +3,15 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur</h1>
+    <div class="container-fluid dashboard-div">
+        <h1>Utilisateur</h1>
 
-    <table class="table">
-        <tbody>
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <td>{{ utilisateur.id }}</td>#}
-{#            </tr>#}
+        <table class="table">
+            <tbody>
+            {# <tr> #}
+            {# <th>Id</th> #}
+            {# <td>{{ utilisateur.id }}</td> #}
+            {# </tr> #}
             <tr>
                 <th>Nom</th>
                 <td>{{ utilisateur.nom }}</td>
@@ -43,17 +44,19 @@
                 <th>Pays</th>
                 <td>{{ utilisateur.adresse.pays }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-{#    <a href="{{ path('utilisateur_index') }}">back to list</a>#}
+        {# <a href="{{ path('utilisateur_index') }}">back to list</a> #}
 
-{#    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>#}
+        {# <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a> #}
 
-    <a class="btn btn-danger"  href="{{ path('utilisateur_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
-    <div style="float: right;" class="col-2 actions text-right">
-        <a class="btn btn-warning " href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}"><i class="fas fa-edit"></i></a>
+        <a class="btn btn-danger" href="{{ path('utilisateur_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
+        <div style="float: right;" class="col-2 actions text-right">
+            <a class="btn btn-warning " href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}"><i
+                        class="fas fa-edit"></i></a>
+        </div>
+
+        {# {{ include('utilisateur/_delete_form.html.twig') }} #}
     </div>
-
-{#    {{ include('utilisateur/_delete_form.html.twig') }}#}
 {% endblock %}
