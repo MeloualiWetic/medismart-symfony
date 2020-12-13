@@ -46,7 +46,7 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
         return $this->createQueryBuilder('u')
             ->select('count(u.id)')
             ->where('u.roles != :role')
-            ->setParameter('role', "ROLE_ADMIN")
+            ->setParameter('role', '["ROLE_ADMIN"]')
             ->getQuery()
             ->getSingleScalarResult()
         ;
@@ -72,8 +72,6 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
     {
         return $this->createQueryBuilder('p')
 //            ->select('c')
-            ->andWhere('p.isDeleted = :val')
-            ->setParameter('val', 0)
             ->andWhere('p.roles != :val')
             ->setParameter('val', '["ROLE_ADMIN"]')
             ->getQuery()

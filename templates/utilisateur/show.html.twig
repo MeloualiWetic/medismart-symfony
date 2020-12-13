@@ -50,9 +50,9 @@
 
 {#    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>#}
 
-    <a class="btn btn-secondary"  href="{{ path('utilisateur_index') }}">Annuler</a>
+    <a class="btn btn-danger"  href="{{ path('utilisateur_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
     <div style="float: right;" class="col-2 actions text-right">
-        <a class="btn btn-primary " href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Editer</a>
+        <a class="btn btn-warning " href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}"><i class="fas fa-edit"></i></a>
     </div>
 
 {#    {{ include('utilisateur/_delete_form.html.twig') }}#}

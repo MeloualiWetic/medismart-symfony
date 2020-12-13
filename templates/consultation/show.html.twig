@@ -5,41 +5,48 @@
 {% block body %}
     <h1>Consultation</h1>
 
-    <table class="table">
-        <tbody>
-{#            <tr>#}
-{#                <th>Id</th>#}
-{#                <td>{{ consultation.id }}</td>#}
-{#            </tr>#}
-            <tr>
-                <th>DateDebut</th>
-                <td>{{ consultation.dateDebut ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DataFin</th>
-                <td>{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ consultation.description }}</td>
-            </tr>
-            <tr>
-                <th>Refernce</th>
-                <td>{{ consultation.refernce }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ consultation.statut ? 'Payer' : 'Non Payer' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Client : </label>
+            {{ consultation.utilisateur.nom }} {{ consultation.utilisateur.prenom }}
+        </div>
+        <div class="col-md-6">
+            <label>Réference : </label>
+            {{ consultation.refernce }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Date Début : </label>
+            {{ consultation.dateDebut ? consultation.dataFin|date('d-m-Y H:i') : '' }}
+        </div>
+        <div class="col-md-6">
+            <label>Date Fin : </label>
+            {{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <label>Statut de paiement : </label>
+            {{ consultation.statut ? 'Payé' : 'Non Payé' }}
+        </div>
+        <div class="col-md-6">
+            <label>description: </label>
+            <td>{{ consultation.description }}</td>
+        </div>
+
+    </div>
+<br>
     <h4>Details Consultation</h4>
+
 <table class="table">
     <th>
-        Prestation
+        Libelle
     </th>
     <th>
-        Frais
+        Prix
     </th>
 
     </tr>
@@ -61,9 +68,9 @@
 
 {#    <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a>#}
 
-    <a class="btn btn-secondary"  href="{{ path('consultation_index') }}">Annuler</a>
+    <a class="btn btn-danger"  href="{{ path('consultation_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
     <div style="float: right;" class="col-2 actions text-right">
-        <a class="btn btn-primary " href="{{ path('consultation_edit', {'id': consultation.id}) }}">Editer</a>
+        <a class="btn btn-warning" href="{{ path('consultation_edit', {'id': consultation.id}) }}"><i class="fas fa-edit"></i></a>
     </div>
 
 {#    {{ include('consultation/_delete_form.html.twig') }}#}

@@ -32,4 +32,12 @@ class PatientViewController extends AbstractController
             'consultation' => $consultation,
         ]);
     }
+
+    /**
+     * @Route("/", name="home", methods={"GET"})
+     */
+    public function home(): Response
+    {
+        return $this->render('home.html.twig');
+    }
 }

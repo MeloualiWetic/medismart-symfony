@@ -9,11 +9,19 @@
             <h4>Liste des patients</h4>
         </div>
         <div class="col-4 actions text-right">
-            <a class="btn btn-primary" href="{{ path('utilisateur_new') }}">Ajouter</a>
+            <a class="btn btn-primary" href="{{ path('utilisateur_new') }}"><i class="fas fa-plus"></i></a>
         </div>
     </div>
 
     <br>
+    <div>
+        {% if(errorMsg != " ") %}
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle"></i>  {{ errorMsg }}
+            </div>
+        {% endif %}
+
+    </div>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>

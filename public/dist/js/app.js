@@ -91,7 +91,7 @@ function addNewForm() {
  */
 function addRemoveButton ($row) {
     // create remove button
-    var $removeButton = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+    var $removeButton = $('<a href="#" class="btn btn-danger">Retirer de la selection </a>');
     var $actionTd = $('<td ></td>').append($removeButton);
 
     $removeButton.click(function (e) {

@@ -22,8 +22,13 @@ class PrestationController extends AbstractController
      */
     public function index(PrestationRepository $prestationRepository): Response
     {
+        $errorMsg = " ";
+
         return $this->render('prestation/index.html.twig', [
-            'prestations' => $prestationRepository->findNoDeletedPrestation(),
+            'prestations' => $prestationRepository->findAll(),
+            'errorMsg' => $errorMsg,
+
+
         ]);
     }
 
@@ -88,24 +93,29 @@ class PrestationController extends AbstractController
      * @Route("/{id}", name="prestation_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, Prestation $prestation): Response
+    public function delete(Request $request, Prestation $prestation,PrestationRepository $prestationRepository): Response
     {
         $details = $prestation->getDetailConsultations();
 
-        if ($this->isCsrfTokenValid('delete'.$prestation->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $prestation->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            if(count($details)>0){
+            if (count($details) > 0) {
+                $errorMsg = "La prestation est déja utilisée dans des consultations !!";
 
-            $prestation->setIsDeleted(true);
-            $entityManager->persist($prestation);
-             $entityManager->flush();
-            }else{
+                return $this->render('prestation/index.html.twig', [
+                    'prestations' => $prestationRepository->findAll(),
+                    'errorMsg' => $errorMsg,
+
+
+                ]);
+            } else {
                 $entityManager->remove($prestation);
                 $entityManager->flush();
+                return $this->redirectToRoute('prestation_index');
             }
         }
 
-        return $this->redirectToRoute('prestation_index');
+
 
     }
 }

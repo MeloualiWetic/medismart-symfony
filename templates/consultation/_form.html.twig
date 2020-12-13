@@ -3,36 +3,88 @@
     tr td:not(.td-not-hide):nth-child(4) {
         display: none;
     }
+    table.table th:nth-child(1), table.table td:nth-child(1) {
+        display: none;
+    }
+    .material-switch .form-group .form-check input {
+        display: none;
+    }
+
+    .material-switch .form-group .form-check label {
+        cursor: pointer;
+        height: 0px;
+        position: relative;
+        width: 40px;
+    }
+
+    .material-switch .form-group .form-check label::before {
+        background: rgb(0, 0, 0);
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        content: '';
+        height: 16px;
+        margin-top: -8px;
+        position: absolute;
+        opacity: 0.3;
+        transition: all 0.4s ease-in-out;
+        width: 40px;
+    }
+
+    .material-switch .form-group .form-check label::after {
+        background: rgb(255, 255, 255);
+        border-radius: 16px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        content: '';
+        height: 24px;
+        left: -4px;
+        margin-top: -8px;
+        position: absolute;
+        top: -4px;
+        transition: all 0.3s ease-in-out;
+        width: 24px;
+    }
+
+    .material-switch .form-group .form-check input[type="checkbox"]:checked+label::before {
+        background: inherit;
+        opacity: 0.5;
+    }
+
+    .material-switch .form-group .form-check input[type="checkbox"]:checked+label::after {
+        background: #29c81e;
+        left: 20px;
+    }
 </style>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-sm-12">
         {{ form_row(form.utilisateur) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6 col-sm-12">
         {{ form_row(form.refernce,{ 'label': 'Reference'}) }}
     </div>
 
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-sm-12">
         {{ form_row(form.dateDebut) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6 col-sm-12">
         {{ form_row(form.dataFin) }}
     </div>
 </div>
 <div class="row">
 
-    <div class="col-md-6">
-        {{ form_row(form.statut,{ 'label': 'Payer'}) }}
+    <div class="material-switch col-lg-6 col-sm-12">
+        <label>Statut de paiement</label>
+        {{ form_row(form.statut) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-sm-12">
         {{ form_row(form.description) }}
     </div>
 
 </div>
+
 
 <br>
 <h4>Details Consultation</h4>
@@ -40,8 +92,8 @@
 
 <div class="row">
 <div class="col-md-6" >
-        <select style=" margin: 3% 9%;" id="prestations-list" class="selectpicker form-control">
-        <option>Selectionner une prestation</option>
+        <select id="prestations-list" class="selectpicker form-control">
+        <option>Selectionnez une prestation</option>
         {% for prestaion in listPrestation %}
 
             <option value="{{ prestaion.id }}" >{{ prestaion.libelle }}</option>
@@ -56,13 +108,13 @@
             </th>
 
             <th>
-                Prestation
+                Libelle
             </th>
             <th>
-                Frais
+                Prix
             </th>
             <th>
-                Action
+                Actions
             </th>
         </tr>
         <tr>
@@ -76,7 +128,7 @@
                 <input id="prestation-frais"  class="form-control" type="number">
             </td>
             <td class="td-not-hide">
-                <a href="#" class="btn btn-info" id="new-row">Ajouter</a>
+                <a href="#" class="btn btn-info" id="new-row">Ajouter a la selection</a>
             </td>
         </tr>
         <tbody id="detail_list" data-prototype="{{ form_widget(form.detailConsultations.vars.prototype)|e('html_attr') }}">
@@ -112,7 +164,7 @@
 
 <div style="float: right;" class="col-2 actions text-right">
     <br>
-    <button  class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    <button  class="btn btn-primary"><i class="far fa-save"></i></button>
 </div>
     {{ form_end(form) }}
 

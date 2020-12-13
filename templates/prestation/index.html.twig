@@ -9,13 +9,18 @@
             <h4>Liste des Prestations</h4>
         </div>
         <div class="col-4 actions text-right">
-            <a class="btn btn-primary" href="{{ path('prestation_new') }}">Ajouter</a>
+            <a class="btn btn-primary" href="{{ path('prestation_new') }}"><i class="fas fa-plus"></i></a>
         </div>
     </div>
 
     <br>
 <div>
-{#    {{ error }}#}
+    {% if(errorMsg != " ") %}
+    <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle"></i>  {{ errorMsg }}
+    </div>
+    {% endif %}
+
 </div>
     <table class="table table-bordered table-striped">
         <thead>

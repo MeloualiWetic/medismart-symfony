@@ -21,8 +21,9 @@ class ConsultationType extends AbstractType
             ->add('utilisateur',EntityType::class,['class'=> 'App\Entity\Utilisateur',
                                                                 'query_builder' => function (EntityRepository  $repository){
                                                                 return $repository->createQueryBuilder('p')
-                                                                    ->andWhere('p.isDeleted = :val')
-                                                                    ->setParameter('val', 0);
+                                                                    ->andWhere('p.roles != :val')
+                                                                    ->setParameter('val', '["ROLE_ADMIN"]')
+                                                                    ;
     }] )
             ->add('dateDebut',DateTimeType::class, [
                         'widget' => 'single_text'])
@@ -30,7 +31,9 @@ class ConsultationType extends AbstractType
                     'widget' => 'single_text',])
             ->add('description')
             ->add('refernce')
-            ->add('statut')
+            ->add('statut',null,[
+                'label' => false,
+            ])
             ->add('detailConsultations',  CollectionType::class, [
                 'entry_type' => DetailConsultationType::class,
                 'label' => false,

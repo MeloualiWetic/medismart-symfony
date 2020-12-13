@@ -22,16 +22,16 @@ class DetailConsultationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id',TextType::class ,array('label' => false,'required' => false, 'mapped' => false,))
+            ->add('id',HiddenType::class ,array('label' => false,'required' => false, 'mapped' => false,))
             ->add('prestationLibelle',TextType::class,array('label' => false))
             ->add('frais',TextType::class,array('label' => false))
             ->add('prestation',EntityType::class,['class'=> 'App\Entity\Prestation',
                                                             'label' => false,
-                                                             'query_builder' => function (EntityRepository  $repository){
-                                                            return $repository->createQueryBuilder('p')
-                                                                ->andWhere('p.isDeleted = :val')
-                                                                ->setParameter('val', 0);
-                                                             }
+//                                                             'query_builder' => function (EntityRepository  $repository){
+//                                                               return $repository->createQueryBuilder('p')
+//                                                                ->andWhere('p.isDeleted = :val')
+//                                                                ->setParameter('val', 0);
+//                                                             }
             ])
         ;
 

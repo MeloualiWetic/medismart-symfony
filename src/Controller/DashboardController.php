@@ -21,7 +21,12 @@ class DashboardController extends AbstractController
      */
     public function index( PrestationRepository $prestationRepository, ConsultationRepository $consultationRepository, UtilisateurRepository $utilisateurRepository): Response
     {
-
+//        DONUT CHART
+        $consultationPaye = $consultationRepository->countConsultationPaye();
+        $consultationNoPaye = $consultationRepository->countConsultationNoPaye();
+        $outputDonutChart [] = (int)$consultationPaye;
+        $outputDonutChart [] = (int)$consultationNoPaye;
+        $outputDonutChart = new Response(json_encode($outputDonutChart));
         $prestationCount = $prestationRepository->countPrestatoin();
        $consultationCount =  $consultationRepository->countConsultation();
        $countPatient = $utilisateurRepository->countUtilisateurs();
@@ -45,7 +50,9 @@ class DashboardController extends AbstractController
             'countPrestation'=>$prestationCount,
             'countConsultation'=>$consultationCount,
             'countPatient' => $countPatient,
-            'output'=> $output
+            'output'=> $output,
+            'outputDonutChart' => $outputDonutChart,
+
         ]);
     }
 }

@@ -32,6 +32,28 @@ class ConsultationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function countConsultationNoPaye()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('count(c.id)')
+            ->andWhere('c.statut = :val')
+            ->setParameter('val', 0)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function countConsultationPaye()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('count(c.id)')
+            ->andWhere('c.statut = :val')
+            ->setParameter('val', 1)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
 
     /**
      * @return Consultation[] Returns an array of Consultation objects

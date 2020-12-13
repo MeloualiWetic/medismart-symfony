@@ -28,8 +28,10 @@ class UtilisateurController extends AbstractController
      */
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
+        $errorMsg = " ";
         return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurRepository->findNoDeletedUtilisateur(),
+            'errorMsg' => $errorMsg
         ]);
     }
 
@@ -101,21 +103,27 @@ class UtilisateurController extends AbstractController
      * @Route("/{id}", name="utilisateur_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, Utilisateur $utilisateur): Response
+    public function delete(Request $request, Utilisateur $utilisateur,UtilisateurRepository $utilisateurRepository): Response
     {
         $consultations = $utilisateur->getConsultations();
         if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             if(count($consultations)>0){
-            $utilisateur->setIsDeleted(true);
-            $entityManager->persist($utilisateur);
-            $entityManager->flush();
+                $errorMsg = "Veuillez d'abord supprimer les consultations liées";
+
+                return $this->render('utilisateur/index.html.twig', [
+                    'utilisateurs' => $utilisateurRepository->findNoDeletedUtilisateur(),
+                    'errorMsg' => $errorMsg,
+
+
+                ]);
             }else{
                 $entityManager->remove($utilisateur);
                 $entityManager->flush();
+                return $this->redirectToRoute('utilisateur_index');
             }
         }
 
-        return $this->redirectToRoute('utilisateur_index');
+
     }
 }

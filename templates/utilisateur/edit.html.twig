@@ -13,7 +13,7 @@
     <br>
     {{ include('utilisateur/_form.html.twig', {'button_label': 'Editer'}) }}
 
-    <a class="btn btn-secondary" href="{{ path('utilisateur_index') }}">Annuler</a>
+    <a class="btn btn-danger" href="{{ path('utilisateur_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
 
     {{ include('utilisateur/_delete_form.html.twig') }}
 {% endblock %}

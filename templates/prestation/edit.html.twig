@@ -13,7 +13,7 @@
 
     {{ include('prestation/_form.html.twig', {'button_label': 'Editer'}) }}
 
-    <a class="btn btn-secondary" href="{{ path('prestation_index') }}">Annuller</a>
+    <a class="btn btn-danger" href="{{ path('prestation_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
 
 {#    {{ include('prestation/_delete_form.html.twig') }}#}
 {% endblock %}
