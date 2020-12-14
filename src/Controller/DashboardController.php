@@ -24,6 +24,7 @@ class DashboardController extends AbstractController
 //        DONUT CHART
         $consultationPaye = $consultationRepository->countConsultationPaye();
         $consultationNoPaye = $consultationRepository->countConsultationNoPaye();
+//        <--->
         $outputDonutChart [] = (int)$consultationPaye;
         $outputDonutChart [] = (int)$consultationNoPaye;
         $outputDonutChart = new Response(json_encode($outputDonutChart));
@@ -35,12 +36,18 @@ class DashboardController extends AbstractController
        $k = 1;
        for ( $j=0;$j< count($consultationByMonth);$j++){
             for ( $i=0;$i<12;$i++){
-               if($consultationByMonth[$j]['byMonth']== $k){
-                   $output[$i] = (int)$consultationByMonth[$j]['count'];
-               }else{
-                   $output[$i] = 0;
-               }
-               $k++;
+                if (is_null($consultationByMonth[$j]) ){
+                    $output[$i] = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+                }else{
+                    if($consultationByMonth[$j]['byMonth']== $k){
+                        $output[$i] = (int)$consultationByMonth[$j]['count'];
+                    }else{
+                        $output[$i] = 0;
+                    }
+                    $k++;
+                }
+
            }
 
         }
