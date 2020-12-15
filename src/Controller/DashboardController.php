@@ -9,18 +9,24 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
- * @Route("/admin/dashboard")
+ * @Route("/dashboard")
  *
  */
 class DashboardController extends AbstractController
 {
     /**
      * @Route("/", name="dashboard",methods={"GET"})
-     * @IsGranted("ROLE_ADMIN")
+     *
      */
-    public function index( PrestationRepository $prestationRepository, ConsultationRepository $consultationRepository, UtilisateurRepository $utilisateurRepository): Response
+    public function index( UserInterface $user, PrestationRepository $prestationRepository, ConsultationRepository $consultationRepository, UtilisateurRepository $utilisateurRepository): Response
     {
+        $roles = $user->getRoles();
+        if ($roles[0] != "ROLE_ADMIN"){
+            return $this->redirectToRoute('patient_view');
+        }else{
 //        DONUT CHART
         $consultationPaye = $consultationRepository->countConsultationPaye();
         $consultationNoPaye = $consultationRepository->countConsultationNoPaye();
@@ -61,5 +67,6 @@ class DashboardController extends AbstractController
             'outputDonutChart' => $outputDonutChart,
 
         ]);
+    }
     }
 }

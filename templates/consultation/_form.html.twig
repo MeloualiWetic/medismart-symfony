@@ -57,7 +57,7 @@
             </div>
             <br>
             <div class="card-body">
-                <table class="table table-bordered table-hover" id="detail-consultation-table">
+                <table class="table table-bordered table-hover" >
                     <thead>
                     <tr>
                         <th>
@@ -96,7 +96,7 @@
 
                         </td>
                         <td class="td-not-hide">
-                            <a href="#" class="btn btn-info" id="new-row">Ajouter a la selection</a>
+                            <a style="float: right" href="#" class="btn btn-info" id="new-row">Ajouter a la selection</a>
                         </td>
                     </tr>
                     {% for row in form.detailConsultations %}
@@ -116,7 +116,7 @@
                             </td>
                             <td>
                                 {# <a href="{{ path('detail_consultation_edit', {'id': row.vars.value.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a> #}
-                                <a href="{{ path('detail_consultation_delete', {'id': row.vars.value.id}) }}"
+                                <a style="float: right"  href="{{ path('detail_consultation_delete', {'id': row.vars.value.id}) }}"
                                    class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                                 {# {{ include('consultation/_delete_dc_form.html.twig') }} #}
 
