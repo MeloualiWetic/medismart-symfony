@@ -82,12 +82,20 @@ class UtilisateurController extends AbstractController
      * @Route("/{id}/edit", name="utilisateur_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit(Request $request, Utilisateur $utilisateur): Response
+    public function edit(Request $request, Utilisateur $utilisateur,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $utilisateur->setIsDeleted(false);
+            // encode the plain password
+            $utilisateur->setPassword(
+                $passwordEncoder->encodePassword(
+                    $utilisateur,
+                    $form->get('password')->getData()
+                )
+            );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('utilisateur_index');
