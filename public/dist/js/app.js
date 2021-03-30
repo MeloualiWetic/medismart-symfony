@@ -28,8 +28,7 @@ $(document).ready(function () {
         $('#prestation-frais').val( $('#prestations-list').val());
         $('#prestation-id').val( $('#prestations-list').val());
 
-             var selected = $('#prestations-list').val();
-             var inputID = $('#prestation-id').val();
+
 
 
     })
