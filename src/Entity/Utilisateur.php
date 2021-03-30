@@ -74,6 +74,12 @@ class Utilisateur implements UserInterface
      */
     private $adresse;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Specialite::class, inversedBy="utilisateurs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $specialite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -262,6 +268,18 @@ class Utilisateur implements UserInterface
     public function setIsDeleted($isDeleted): void
     {
         $this->isDeleted = $isDeleted;
+    }
+
+    public function getSpecialite(): ?Specialite
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(?Specialite $specialite): self
+    {
+        $this->specialite = $specialite;
+
+        return $this;
     }
 
 

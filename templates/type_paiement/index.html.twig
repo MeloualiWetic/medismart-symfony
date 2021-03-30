@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypePaiement index
+{% endblock %}
+
+{% block body %}
+	<br>
+	<div class="container-fluid">
+		<div class="row top-actions">
+			<div class="col-8 top-header">
+				<h4>Liste des types paiement</h4>
+			</div>
+			<div class="col-4 actions text-right">
+				<a class="btn btn-primary" href="{{ path('type_paiement_new') }}">
+					<i class="fas fa-plus"></i>
+				</a>
+			</div>
+		</div>
+
+		<br>
+		<div class="card-body">
+			<table id="type-paiement-table" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Description</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for type_paiement in type_paiements %}
+						<tr>
+							<td>{{ type_paiement.nom }}</td>
+							<td>{{ type_paiement.description }}</td>
+							<td>                                
+								<a class="btn btn-info" href="{{ path('type_paiement_show', {'id': type_paiement.id}) }}">
+									<i class="fas fa-eye"></i>
+								</a>
+								<a class="btn btn-warning" href="{{ path('type_paiement_edit', {'id': type_paiement.id}) }}">
+									<i class="fas fa-edit"></i>
+								</a>
+								{{ include('type_paiement/_delete_form.html.twig') }}
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

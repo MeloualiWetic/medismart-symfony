@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur index{% endblock %}
+{% block title %}Medecin index{% endblock %}
 
 {% block body %}
     <div class="container-fluid dashboard-div">
         <br>
         <div class="row top-actions">
             <div class="col-8 top-header">
-                <h4>Liste des patients</h4>
+                <h4>Liste des Medecin</h4>
             </div>
             <div class="col-4 actions text-right">
                 <a class="btn btn-primary" href="{{ path('utilisateur_new') }}"><i class="fas fa-plus"></i></a>
@@ -24,7 +24,7 @@
 
         </div>
         <div class="card-body">
-            <table id="utilisateur-table" class="table table-bordered table-hover">
+            <table id="utilisateur-table" class="table table-bordered table-hover respensive-tbls">
                 <thead>
                 <tr>
                     {# <th>Id</th> #}

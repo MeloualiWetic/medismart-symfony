@@ -1,80 +1,102 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Consultation{% endblock %}
+{% block title %}Consultation
+{% endblock %}
 
 {% block body %}
-    <div class="container-fluid dashboard-div">
-        <h1>Consultation</h1>
+	<div class="container-fluid dashboard-div">
+		<h1>Consultation</h1>
 
-        <div class="row">
-            <div class="col-md-6">
-                <label>Client : </label>
-                {{ consultation.utilisateur.nom }} {{ consultation.utilisateur.prenom }}
-            </div>
+		<div class="row">
+			<div class="col-md-6">
+				<label>Client :
+				</label>
+				{{ consultation.utilisateur.nom }}
+				{{ consultation.utilisateur.prenom }}
+			</div>
+			<div class="col-md-6">
+				<label>Patient :
+				</label>
+				{{ consultation.patient }}
+			</div>
+
+		</div>
+        		<div class="row">
+			<div class="col-md-6">
+				<label>Type Paiement :
+				</label>
+				{{ consultation.typePaiement }}
+			</div>
             <div class="col-md-6">
                 <label>Réference : </label>
                 {{ consultation.refernce }}
             </div>
 
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <label>Date Début : </label>
-                {{ consultation.dateDebut ? consultation.dataFin|date('d-m-Y H:i') : '' }}
-            </div>
-            <div class="col-md-6">
-                <label>Date Fin : </label>
-                {{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}
-            </div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label>Date Début :
+				</label>
+				{{ consultation.dateDebut ? consultation.dataFin|date('d-m-Y H:i') : '' }}
+			</div>
+			<div class="col-md-6">
+				<label>Date Fin :
+				</label>
+				{{ consultation.dataFin ? consultation.dataFin|date('d-m-Y H:i') : '' }}
+			</div>
 
-        </div>
-        <div class="row">
-            <div class="col-md-6 ">
-                <label>Statut de paiement : </label>
-                {{ consultation.statut ? 'Payé' : 'Non Payé' }}
-            </div>
-            <div class="col-md-6">
-                <label>Description: </label>
-                <td>{{ consultation.description }}</td>
-            </div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 ">
+				<label>Statut de paiement :
+				</label>
+				{{ consultation.statut ? 'Payé' : 'Non Payé' }}
+			</div>
+			<div class="col-md-6">
+				<label>Description:
+				</label>
+				<td>{{ consultation.description }}</td>
+			</div>
 
-        </div>
-        <br>
-        <h4>Details Consultation</h4>
+		</div>
+		<br>
+		<h4>Details Consultation</h4>
 
-        <table class="table">
-            <th>
-                Libelle
-            </th>
-            <th>
-                Prix
-            </th>
+		<table class="table">
+			<th>
+				Libelle
+			</th>
+			<th>
+				Prix
+			</th>
 
-            </tr>
-            {% for row in consultation.detailConsultations %}
-            <tr>
+		</tr>
+		{% for row in consultation.detailConsultations %}
+			<tr>
 
-                <td>
-                    {{ row.prestation }}
-                </td>
-                <td>
-                    {{ row.frais }}
-                </td>
+				<td>
+					{{ row.prestation }}
+				</td>
+				<td>
+					{{ row.frais }}
+				</td>
 
-                {% endfor %}
-            </tr>
-        </table>
+			{% endfor %}
+		</tr>
+	</table>
 
-        {# <a  href="{{ path('consultation_index') }}">back to list</a> #}
+	{# <a  href="{{ path('consultation_index') }}">back to list</a> #}
 
-        {# <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a> #}
+	{# <a href="{{ path('consultation_edit', {'id': consultation.id}) }}">edit</a> #}
 
-        <a class="btn btn-danger" href="{{ path('consultation_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
-        <div style="float: right;" class="col-2 actions text-right">
-            <a class="btn btn-warning" href="{{ path('consultation_edit', {'id': consultation.id}) }}"><i
-                        class="fas fa-edit"></i></a>
-        </div>
+	<a class="btn btn-danger" href="{{ path('consultation_index') }}">
+		<i class="fas fa-chevron-circle-left"></i>
+	</a>
+	<div style="float: right;" class="col-2 actions text-right">
+		<a class="btn btn-warning" href="{{ path('consultation_edit', {'id': consultation.id}) }}">
+			<i class="fas fa-edit"></i>
+		</a>
+	</div>
 
-        {# {{ include('consultation/_delete_form.html.twig') }} #}
-    </div>
-{% endblock %}
+	{# {{ include('consultation/_delete_form.html.twig') }} #}
+</div>{% endblock %}

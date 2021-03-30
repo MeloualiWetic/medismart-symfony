@@ -24,10 +24,9 @@
 
         </div>
         <div class="card-body">
-            <table id="prestation-table" class="table table-bordered table-hover">
+            <table id="prestation-table" class="table table-bordered table-hover respensive-tbls">
                 <thead>
                 <tr>
-                    {# <th>Id</th> #}
                     <th>Libelle</th>
                     <th>Frais</th>
                     <th>Actions</th>
@@ -36,7 +35,6 @@
                 <tbody>
                 {% for prestation in prestations %}
                     <tr>
-                        {# <td>{{ prestation.id }}</td> #}
                         <td>{{ prestation.libelle }}</td>
                         <td>{{ prestation.frais }}</td>
                         <td>
@@ -46,7 +44,7 @@
                             <a href="{{ path('prestation_edit', {'id': prestation.id}) }}">
                                 <button class="btn btn-warning"><i class="fas fa-edit"></i></button>
                             </a>
-                            {# <a href="{{ path('prestation_delete', {'id': prestation.id}) }}"><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a> #}
+
                             {{ include('prestation/_delete_form.html.twig') }}
                         </td>
                     </tr>

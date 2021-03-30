@@ -57,6 +57,18 @@ class Consultation
      */
     private $detailConsultations;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=TypePaiement::class, inversedBy="consultations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typePaiement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Patient::class, inversedBy="consultations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $patient;
+
     public function __construct()
     {
         $this->detailConsultations = new ArrayCollection();
@@ -169,6 +181,30 @@ class Consultation
                 $detailConsultation->setConsultation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTypePaiement(): ?TypePaiement
+    {
+        return $this->typePaiement;
+    }
+
+    public function setTypePaiement(?TypePaiement $typePaiement): self
+    {
+        $this->typePaiement = $typePaiement;
+
+        return $this;
+    }
+
+    public function getPatient(): ?Patient
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(?Patient $patient): self
+    {
+        $this->patient = $patient;
 
         return $this;
     }

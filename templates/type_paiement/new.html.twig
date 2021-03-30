@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypePaiement
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row top-actions">
+			<div class="col-8 top-header">
+				<h4>Créer Type Paiement</h4>
+			</div>
+
+		</div>
+
+		{{ include('type_paiement/_form.html.twig') }}
+
+        <a class="btn btn-danger" href="{{ path('type_paiement_index') }}"><i class="fas fa-chevron-circle-left"></i></a>
+
+	</div>
+{% endblock %}

@@ -14,8 +14,18 @@
             {{ form_row(form.utilisateur) }}
         </div>
         <div class="col-lg-6 col-sm-12">
+            {{ form_row(form.patient,{ 'label': 'Patient'}) }}
+        </div>
+
+    </div>
+        <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            {{ form_row(form.typePaiement) }}
+        </div>
+        <div class="col-lg-6 col-sm-12">
             {{ form_row(form.refernce,{ 'label': 'Reference'}) }}
         </div>
+
 
     </div>
     <div class="row">
